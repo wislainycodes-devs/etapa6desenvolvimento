@@ -5,14 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Você Cairia Nessa? — Simulador de Segurança Digital</title>
 <style>
-:root{--bg:#f4f7fb;--surface:#fff;--text:#182235;--muted:#526078;--primary:#194b8f;--primary-hover:#12396d;--border:#d7dfeb;--good-bg:#e7f7ed;--good-text:#14532d;--warn-bg:#fff4dc;--warn-text:#713f12;--shadow:0 8px 24px rgba(24,34,53,.08);box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+:root{--bg:#f4f7fb;--surface:#fff;--text:#182235;--muted:#526078;--primary:#194b8f;--primary-hover:#12396d;--border:#d7dfeb;--good-bg:#e7f7ed;--good-text:#14532d;--warn-bg:#fff4dc;--warn-text:#713f12;--shadow:0 8px 24px rgba(24,34,53,.08);box-sizing:border-box}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e1420;--surface:#161e2e;--text:#e8edf6;--muted:#a3b0c6;--primary:#2f6fc7;--primary-hover:#3d7fd6;--border:#2b3850;--good-bg:#0f3a22;--good-text:#d6f5e1;--warn-bg:#4a3510;--warn-text:#ffe9bf;--shadow:none}}
-:root[data-theme="dark"]{--bg:#0e1420;--surface:#161e2e;--text:#e8edf6;--muted:#a3b0c6;--primary:#2f6fc7;--primary-hover:#3d7fd6;--border:#2b3850;--good-bg:#0f3a22;--good-text:#d6f5e1;--warn-bg:#4a3510;--warn-text:#ffe9bf;--shadow:none}
 *{box-sizing:border-box}
-html{scroll-padding-top:env(safe-area-inset-top,0px)}
 body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,Helvetica,sans-serif;line-height:1.6;font-size:18px}
 body.high-contrast{--bg:#000;--surface:#000;--text:#fff;--muted:#f0f0f0;--primary:#ffeb00;--primary-hover:#ffe000;--border:#fff;--good-bg:#003d1b;--good-text:#fff;--warn-bg:#4a2500;--warn-text:#fff;--shadow:none}
-body.high-contrast .brand-mark,body.high-contrast .primary-btn,body.high-contrast .tab[aria-current="page"]{color:#000}
+body.high-contrast .brand-mark,body.high-contrast .primary-btn{color:#000}
 body.high-contrast .choice-btn{background:#000}
 header{background:var(--surface);border-bottom:1px solid var(--border);padding:14px 20px}
 .header-inner{max-width:1040px;margin:auto;display:flex;gap:14px;align-items:center;justify-content:space-between;flex-wrap:wrap}
@@ -49,32 +47,28 @@ h1{font-size:clamp(28px,5vw,42px);line-height:1.12;margin:8px 0 12px}
 .side-section+.side-section{margin-top:22px;padding-top:20px;border-top:1px solid var(--border)}
 .side-section h3{font-size:1em;margin:0 0 8px}
 .mini-list{padding-left:20px;margin:8px 0 0}.mini-list li{margin:6px 0}
+.official-links{margin-top:10px;padding-left:0;list-style:none}
+.official-links li{margin:10px 0;font-size:.85em;line-height:1.4}
+.official-links a{color:var(--primary);font-weight:700;text-decoration:underline}
 .question{border:1px solid var(--border);border-radius:12px;padding:12px;margin:10px 0}.question strong{display:block;margin-bottom:4px}
 .scenario-nav{display:grid;gap:8px}
 .nav-btn{display:flex;gap:10px;align-items:center;text-align:left;padding:10px;border:1px solid var(--border);border-radius:10px;background:var(--surface);color:var(--text)}
 .nav-btn.active{border:2px solid var(--primary)}
-.nav-number{flex:0 0 30px;height:30px;display:grid;place-items:center;border-radius:9px;background:var(--bg);font-weight:800}
+.nav-number{flex:0 0 30px;height:30px;display:grid;place-items:center;border-radius:99px;background:var(--bg);font-weight:800}
 .nav-label{font-size:.9em;font-weight:700}
 .small{font-size:.85em}
 footer{max-width:1040px;padding:0 18px 32px;margin:auto;color:var(--muted);font-size:.85em}
+.footer-content{display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;border-top:1px solid var(--border);padding-top:24px}
+.fama-logo{max-width:220px;width:100%;height:auto;border-radius:10px;background:#fff;padding:8px;border:1px solid var(--border);box-shadow:0 2px 8px rgba(0,0,0,.05)}
 .summary-list{display:grid;gap:10px;margin:16px 0}.summary-item{border:1px solid var(--border);padding:12px;border-radius:10px}
 .hidden{display:none!important}
-.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
-.tab{flex:1;min-height:44px;border:2px solid var(--border);border-radius:10px;background:var(--surface);color:var(--text);font-weight:700;padding:8px 12px}
-.tab[aria-current="page"]{background:var(--primary);color:#fff;border-color:var(--primary)}
-.fb{border:2px solid var(--primary);border-radius:12px;padding:10px 14px;background:var(--surface)}
-.ar{text-align:center;font-size:1.4em;color:var(--muted);line-height:1.2}
-.wfs{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin:14px 0}
-.wf{border:2px solid var(--text);border-radius:14px;padding:8px;background:var(--surface);font-size:.8em}
-.wf b{display:block;text-align:center;margin-bottom:6px}
-.wf div{border:1.5px dashed var(--muted);border-radius:6px;padding:5px 7px;margin-bottom:6px;color:var(--muted)}
-.wf div.btn{border:2px solid var(--text);color:var(--text);font-weight:700;text-align:center}
 /* celular */
 .phone{width:min(100%,340px);margin:14px auto;border:9px solid #14171c;border-radius:38px;background:#14171c;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,.25);font-family:Arial,Helvetica,sans-serif}
 .ph-top{display:flex;justify-content:space-between;padding:4px 18px 5px;font-size:11px;font-weight:700;color:#fff;line-height:1.4}
 .ph-head{display:flex;gap:10px;align-items:center;padding:9px 12px;color:#fff;background:#075e54}
 .sms .ph-head{background:#f3f3f5;color:#111}.call .ph-head{background:#1f2430}
-.av{width:38px;height:38px;flex:none;border-radius:50%;display:grid;place-items:center;background:#cfd8dc;font-size:20px}
+.av{width:38px;height:38px;flex:none;border-radius:50%;display:grid;place-items:center;background:#cfd8dc;font-size:20px;overflow:hidden}
+.av img{width:100%;height:100%;object-fit:cover}
 .ph-name{font-weight:700;font-size:15px;line-height:1.25}.ph-sub{font-size:11.5px;opacity:.8;line-height:1.3}
 .chat{height:390px;overflow-y:auto;padding:12px 10px;display:flex;flex-direction:column;gap:6px;background:#ece5dd;color:#111;font-size:14.5px;line-height:1.4}
 .sms .chat{background:#fff}.call .chat{background:#0f131b;color:#fff}
@@ -83,6 +77,7 @@ footer{max-width:1040px;padding:0 18px 32px;margin:auto;color:var(--muted);font-
 .sms .m{background:#e9e9eb;box-shadow:none;border-radius:18px}.sms .m.me{background:#0b84fe;color:#fff}
 .call .m{background:#262d3b;color:#fff;box-shadow:none}.call .m.me{background:#1d6f42}
 .m small{display:block;text-align:right;font-size:10px;opacity:.6;margin-top:2px}
+.m img.chat-img{max-width:100%;height:auto;border-radius:8px;display:block;margin-bottom:4px}
 .sy{align-self:center;text-align:center;font-size:12.5px;background:#fff3c4;color:#4a3b00;padding:7px 10px;border-radius:8px;max-width:94%}
 .sy.notif{background:#dbe7ff;color:#12325f}.sy.good{background:#d6f5e1;color:#14532d}.sy.bad{background:#ffd9d4;color:#5c1008}
 .file{display:flex;gap:8px;align-items:center;background:rgba(0,0,0,.07);border-radius:8px;padding:8px;margin-bottom:3px;font-size:13px}
@@ -93,7 +88,11 @@ footer{max-width:1040px;padding:0 18px 32px;margin:auto;color:var(--muted);font-
 .sms .me .fl.lk{color:#fff}
 .chat.rev .fl{background:#ffd54a;color:#111;border-radius:4px;padding:0 2px;box-shadow:0 0 0 1px #b8860b;text-decoration:none}
 .fake{font-size:.85em;color:var(--muted);text-align:center;margin-top:4px}
-@media (max-width:760px){.layout{grid-template-columns:1fr}.hero{padding:16px}.hero p{display:none}.hero h1{margin:4px 0}.panel{padding:16px}.header-inner{align-items:flex-start}}
+@media (max-width:760px){
+  .layout{grid-template-columns:1fr}.hero{padding:16px}.hero p{display:none}.hero h1{margin:4px 0}.panel{padding:16px}.header-inner{align-items:flex-start}
+  .footer-content{flex-direction:column-reverse;align-items:center;text-align:center}
+  .fama-logo{max-width:260px}
+}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
 </style>
 </head>
@@ -109,14 +108,11 @@ footer{max-width:1040px;padding:0 18px 32px;margin:auto;color:var(--muted);font-
 
 <main>
   <section class="hero">
-    <div class="hero-kicker">Aprenda praticando</div>
+    <div class="hero-kicker">Produto Desenvolvido — Versão Funcional</div>
     <h1>Você cairia nessa?</h1>
-    <p>As mensagens abaixo foram recriadas a partir de golpes reais: o canal, o tom e a pressa são os mesmos. Leia como se chegassem no seu celular, escolha o que faria e descubra os sinais.</p>
-    <div class="hero-note">Não existe vergonha em ter dúvidas. O objetivo é aprender, não julgar.</div>
+    <p>Experimente situações reais de golpes exatamente como chegam no celular. Analise a mensagem, escolha sua atitude e veja os sinais de alerta explicados na prática.</p>
+    <div class="hero-note">Ferramenta interativa de conscientização em segurança digital.</div>
   </section>
-
-  <nav class="tabs" aria-label="Partes do protótipo"><button class="tab" data-v="sim" type="button" aria-current="page">Simulador</button><button class="tab" data-v="fluxo" type="button">Fluxo</button><button class="tab" data-v="cen" type="button">Cenários</button><button class="tab" data-v="telas" type="button">Telas</button></nav>
-  <section class="panel hidden" id="docView"></section>
 
   <div class="layout" id="layout">
     <section class="panel">
@@ -132,7 +128,7 @@ footer{max-width:1040px;padding:0 18px 32px;margin:auto;color:var(--muted);font-
           <div class="ph-head"><div class="av" id="phAv" aria-hidden="true"></div><div><div class="ph-name" id="phName"></div><div class="ph-sub" id="phSub"></div></div></div>
           <div class="chat" id="chat" role="log" aria-live="polite" aria-label="Conversa"></div>
         </div>
-        <div class="fake">Conversa fictícia, baseada em golpes reais.</div>
+        <div class="fake">Simulação interativa baseada em incidentes reais.</div>
         <div id="decide" class="hidden">
           <p><strong>O que você faria?</strong></p>
           <div class="choice-list" id="choices"></div>
@@ -145,10 +141,10 @@ footer{max-width:1040px;padding:0 18px 32px;margin:auto;color:var(--muted);font-
       </div>
 
       <div id="resultView" class="hidden">
-        <h2>Você concluiu o simulador!</h2>
+        <h2>Simulação Concluída com Sucesso!</h2>
         <p id="resultMessage"></p>
         <div class="summary-list" id="resultSummary"></div>
-        <h3>Três perguntas para lembrar antes de agir</h3>
+        <h3>Três perguntas essenciais antes de agir</h3>
         <div class="question"><strong>1. É realmente quem diz ser?</strong>Confirme por outro canal conhecido, principalmente quando houver pedido inesperado.</div>
         <div class="question"><strong>2. Estão pedindo dinheiro, códigos ou dados pessoais?</strong>Não compartilhe códigos de verificação nem informações sensíveis.</div>
         <div class="question"><strong>3. Estão pressionando você a agir rápido?</strong>Pare, respire e confira antes de clicar, pagar ou responder.</div>
@@ -158,8 +154,8 @@ footer{max-width:1040px;padding:0 18px 32px;margin:auto;color:var(--muted);font-
 
     <aside class="panel">
       <div class="side-section">
-        <h2>Seu caminho</h2>
-        <p class="muted small">Você pode abrir uma situação pelo menu. Depois da escolha, os sinais de golpe ficam destacados em amarelo na conversa.</p>
+        <h2>Trilha de Cenários</h2>
+        <p class="muted small">Selecione uma situação abaixo para testar diretamente. Após a escolha, os sinais de alerta aparecem destacados na conversa.</p>
         <nav class="scenario-nav" id="scenarioNav" aria-label="Escolher situação"></nav>
       </div>
       <div class="side-section">
@@ -167,27 +163,40 @@ footer{max-width:1040px;padding:0 18px 32px;margin:auto;color:var(--muted);font-
         <ul class="mini-list"><li>Urgência ou ameaça para decidir rápido.</li><li>Pedido inesperado de dinheiro ou código.</li><li>Link estranho ou remetente desconhecido.</li><li>Oferta boa demais ou pedido de segredo.</li></ul>
       </div>
       <div class="side-section">
-        <h3>Se você já caiu em um golpe</h3>
-        <p class="small">Interrompa o contato, não envie mais dinheiro, procure seu banco pelos canais oficiais, troque senhas afetadas e guarde provas. Se houve transferência via Pix, pergunte ao banco sobre contestação e mecanismos disponíveis, como o MED quando aplicável. Considere registrar boletim de ocorrência.</p>
+        <h3>O que fazer se cair em um golpe?</h3>
+        <p class="small">Interrompa o contato imediatamente, não envie mais valores, comunique seu banco pelos canais oficiais para contestação (como o MED no Pix), altere senhas e registre um boletim de ocorrência.</p>
+      </div>
+      <div class="side-section">
+        <h3>Ajuda e Orientação Oficial</h3>
+        <ul class="official-links">
+          <li>📚 <a href="https://cartilha.cert.br/" target="_blank" rel="noopener noreferrer">CERT.br — Cartilha de Segurança para a Internet</a></li>
+          <li>🏦 <a href="https://www.bcb.gov.br/estabilidadefinanceira/pix-seguranca" target="_blank" rel="noopener noreferrer">Banco Central — Como Funciona o MED (Devolução do Pix)</a></li>
+          <li>📝 <a href="https://delegaciavirtual.sinesp.gov.br/" target="_blank" rel="noopener noreferrer">Delegacia Virtual (Sinesp) — Registro de B.O. Online</a></li>
+          <li>🛡️ <a href="https://www.gov.br/pf/pt-br/assuntos/combate-a-crimes-ciberneticos/cartilhas-de-seguranca-da-informacao/cartilhas-de-seguranca" target="_blank" rel="noopener noreferrer">Polícia Federal — Cartilhas de Prevenção a Crimes Ciber</a></li>
+        </ul>
       </div>
     </aside>
   </div>
 </main>
 
 <footer>
-  <strong>Projeto Integrador III — PI-III</strong><br>
-  <strong>Produto:</strong> Você Cairia Nessa? — Simulador de Segurança Digital<br>
-  <strong>Integrantes:</strong> Wislainy Fontes dos Santos • Tawany Fontes dos Santos • João Victor Lacerda Ribeiro<br>
-  Educação para a segurança digital. Este simulador é educativo e não substitui orientação do banco ou de autoridades competentes.
+  <div class="footer-content">
+    <div>
+      <strong>Projeto Integrador III — PI-III</strong><br>
+      <strong>Produto:</strong> Você Cairia Nessa? — Simulador de Segurança Digital (Versão Funcional)<br>
+      <strong>Integrantes:</strong> Wislainy Fontes dos Santos • Tawany Fontes dos Santos • João Victor Lacerda Ribeiro<br>
+      Desenvolvido para fins educativos e práticos na FAMA.
+    </div>
+    <img src="https://lh3.googleusercontent.com/d/1Obt_-_f44yevjzPTeNgXuujV1mARXpFY" alt="Logo Faculdade FAMA" class="fama-logo">
+  </div>
 </footer>
 
 <script>
-/* Marcadores: {{trecho}} = sinal de alerta (destacado após a escolha); se começar com http vira link. */
 const S = [
 {
-  title:"Um familiar manda mensagem de um número novo", tags:["Fraudes digitais","Engenharia social"],
-  intro:"Você está no trabalho quando chega uma mensagem de um número que não está na sua agenda. A foto de perfil parece ser do seu filho ou da sua filha.",
-  app:"wa", av:"🧑", name:"+55 11 91234-5678", sub:"online", at:[14,32],
+  title:"Familiar com número novo", tags:["Fraudes digitais","Engenharia social"],
+  intro:"Você está no trabalho quando chega uma mensagem de um número desconhecido com a foto de perfil de um familiar.",
+  app:"wa", av:"🧑", name:"+55 62 91234-56**", sub:"online", at:[14,32],
   msgs:[
     {s:"Este número não está na sua lista de contatos."},
     {x:"Oi mãe!"},
@@ -196,110 +205,116 @@ const S = [
     {x:"Mãe, tenho um boleto que vence hoje. {{Faz um Pix pra mim?}} Depois te devolvo. {{Te explico tudo depois, é urgente!}} 🙏"}
   ],
   choices:[
-    {t:"Fazer o Pix, porque parece ser alguém conhecido.", ok:false, ti:"Pare e confirme primeiro", ex:"Golpistas copiam a foto de perfil e usam urgência para impedir a checagem.", ac:"Ligue para o número que você já conhecia ou confirme pessoalmente com a pessoa/família. Não use apenas o contato novo para confirmar.", me:"Tá bom, filho! Qual a chave Pix?", re:["Valeu!! Já paguei o boleto 🙏 {{Só mais um favor: manda mais R$ 500 pra outra conta?}}"], sy:"⚠ Você transferiu dinheiro para um golpista e ele já está pedindo mais."},
-    {t:"Confirmar por uma ligação ou outro contato que eu já conheço.", ok:true, ti:"Boa escolha!", ex:"Confirmar por um canal independente ajuda a verificar a identidade da pessoa.", ac:"Antes de transferir, converse com o familiar pelo número antigo ou combine uma palavra de segurança com a família.", me:"Vou te ligar rapidinho no seu número de sempre.", re:["{{Não liga não, tô sem sinal! Só dá por aqui}}"], sy:"✔ Você ligou para o número antigo: seu filho atendeu, estava em casa e o celular estava normal. Era golpe."},
-    {t:"Responder pedindo mais dados pessoais para ver se a pessoa sabe.", ok:false, ti:"Isso não é suficiente", ex:"Dados pessoais podem ter sido obtidos em vazamentos ou redes sociais, então não provam a identidade.", ac:"Prefira ligar para um contato conhecido e não revele informações adicionais durante a conversa suspeita.", me:"Qual o nome da nossa cachorrinha?", re:["Mãe, sério?? 😤 {{Não tenho tempo pra isso, o boleto vence hoje!}}"], sy:"⚠ O golpista contornou a pergunta e manteve a pressão. Responder à conversa suspeita só dá mais informações a ele."}
+    {t:"Fazer o Pix, porque parece ser alguém conhecido.", ok:false, ti:"Pare e confirme primeiro", ex:"Golpistas copiam a foto de perfil e usam urgência para impedir a checagem.", ac:"Ligue para o número que você já conhecia ou confirme pessoalmente com a pessoa/família.", me:"Tá bom, filho! Qual a chave Pix?", re:["Valeu!! Já paguei o boleto 🙏 {{Só mais um favor: manda mais R$ 500 pra outra conta?}}"], sy:"⚠ Você transferiu dinheiro para um golpista e ele já está pedindo mais."},
+    {t:"Confirmar por uma ligação ou outro contato conhecido.", ok:true, ti:"Boa escolha!", ex:"Confirmar por um canal independente ajuda a verificar a identidade da pessoa.", ac:"Antes de transferir, converse com o familiar pelo número antigo.", me:"Vou te ligar rapidinho no seu número de sempre.", re:["{{Não liga não, tô sem sinal! Só dá por aqui}}"], sy:"✔ Você ligou para o número antigo: seu filho atendeu, estava em casa e o celular estava normal. Era golpe."},
+    {t:"Pedir dados pessoais para testar se a pessoa sabe.", ok:false, ti:"Isso não é suficiente", ex:"Dados pessoais podem ser obtidos em vazamentos ou redes sociais.", ac:"Prefira ligar para um contato conhecido.", me:"Qual o nome da nossa cachorrinha?", re:["Mãe, sério?? 😤 {{Não tenho tempo pra isso, o boleto vence hoje!}}"], sy:"⚠ O golpista contornou a pergunta e manteve a pressão."}
   ],
   signs:["Número novo dizendo ser da família","Pedido de dinheiro por Pix","Urgência: “depois explico”"],
-  help:"Se já pagou: app do banco (contestar o Pix) e boletim de ocorrência.", src:"CERT.br, Golpes: Não se Deixe Enganar (2026)"
+  help:"Se enviou dinheiro: peça devolução no app do seu banco via MED (Mecanismo Especial de Devolução) do Banco Central e faça um B.O. na Delegacia Virtual.",
+  src:"CERT.br — Cartilha de Segurança para a Internet (https://cartilha.cert.br/); Banco Central do Brasil — Segurança no Pix (https://www.bcb.gov.br/estabilidadefinanceira/pix-seguranca)"
 },
 {
-  title:"Mensagem falsa do banco", tags:["Fraudes digitais","Links suspeitos"],
-  intro:"De madrugada, seu celular vibra com um SMS que parece vir do seu banco.",
+  title:"Mensagem falsa de bloqueio bancário", tags:["Fraudes digitais","Links suspeitos"],
+  intro:"De madrugada, seu celular vibra com um SMS urgente alertando sobre acesso suspeito.",
   app:"sms", av:"🏦", name:"BANCO-ALERTA", sub:"SMS · hoje", at:[2,15],
   msgs:[
     {x:"[BANCO] ALERTA: {{acesso suspeito}} detectado na sua conta às 02:14."},
-    {x:"Sua conta será {{BLOQUEADA ainda hoje}}. Para evitar o bloqueio, regularize seu cadastro: {{http://banco-seguranca-app.top/regularizar}}"},
+    {x:"Sua conta será {{BLOQUEADA ainda hoje}}. Para evitar, regularize: {{http://banco-seguranca-app.top/regularizar}}"},
     {x:"Equipe de Segurança. Atendimento 24h."}
   ],
   choices:[
-    {t:"Abrir o link e digitar meus dados para evitar o bloqueio.", ok:false, ti:"Cuidado com links recebidos", ex:"Mensagens falsas imitam bancos para roubar senhas e dados.", ac:"Não clique. Abra o aplicativo que você já usa ou digite o endereço oficial do banco por conta própria. Se houver dúvida, ligue para o número oficial.", me:"(Você abre o link e preenche CPF, agência, conta e senha)", re:["{{Dados recebidos.}} Para concluir, informe também o código que chegou por SMS."], sy:"⚠ A página era falsa. O golpista agora tem seus dados e quer o código para entrar na sua conta."},
-    {t:"Ignorar o link e verificar pelo aplicativo oficial do banco.", ok:true, ti:"Boa escolha!", ex:"Usar o app ou site oficial, acessado por você, reduz o risco de cair em uma página falsa.", ac:"Não informe senha, token ou código em links recebidos por mensagem.", me:"(Você ignora o SMS e abre o aplicativo que já usa)", re:[], sy:"✔ No app oficial não há nenhum alerta nem bloqueio. Você apagou e denunciou a mensagem."},
-    {t:"Encaminhar o link para amigos perguntando se é verdadeiro.", ok:false, ti:"Melhor não espalhar o link", ex:"Encaminhar pode expor outras pessoas ao risco e não confirma que a mensagem é legítima.", ac:"Verifique diretamente com o banco por um canal oficial e apague ou denuncie a mensagem suspeita.", me:"Gente, vcs receberam isso do banco? 😬 {{http://banco-seguranca-app.top/regularizar}}", re:["Amiga: Recebi também!! Vou clicar pra ver se é de verdade"], sy:"⚠ Receber a mesma mensagem não prova que ela é verdadeira. Golpes são enviados em massa, e sua amiga pode acabar clicando."}
+    {t:"Abrir o link e digitar meus dados para evitar o bloqueio.", ok:false, ti:"Cuidado com links recebidos", ex:"Mensagens falsas imitam bancos para roubar senhas e dados.", ac:"Não clique. Abra o aplicativo oficial por conta própria.", me:"(Você abre o link e preenche CPF e senha)", re:[""], sy:"⚠ A página era falsa. O golpista obteve seus dados de acesso."},
+    {t:"Ignorar o link e verificar pelo aplicativo oficial.", ok:true, ti:"Boa escolha!", ex:"Usar o app ou site oficial reduz o risco de phishing.", ac:"Não informe senhas em links de SMS.", me:"(Você ignora o SMS e abre o aplicativo oficial do banco)", re:[], sy:"✔ No app oficial não há nenhum alerta. Você apagou e denunciou a mensagem."},
+    {t:"Encaminhar o link para amigos para tirar dúvida.", ok:false, ti:"Melhor não espalhar o link", ex:"Encaminhar pode expor outras pessoas ao risco.", ac:"Verifique diretamente com o banco por um canal oficial.", me:"Gente, vcs receberam isso? 😬 {{http://banco-seguranca-app.top/regularizar}}", re:["Amiga: Recebi também!! Vou clicar pra ver"], sy:"⚠ Receber a mesma mensagem não prova que ela é verdadeira."}
   ],
-  signs:["Alerta de bloqueio com urgência","Link enviado por SMS","Endereço estranho, diferente do site oficial"],
-  help:"Canais oficiais do seu banco: aplicativo e telefone do cartão.", src:"Ministério das Comunicações, Ataque Phishing (2026)"
+  signs:["Alerta de bloqueio com urgência","Link enviado por SMS","Endereço de site estranho"],
+  help:"Se digitou senhas no link: altere sua senha bancária imediatamente no app oficial e bloqueie temporariamente seus cartões.",
+  src:"CERT.br — Guia Anti-Phishing (https://cartilha.cert.br/); Polícia Federal — Cartilhas (https://www.gov.br/pf/pt-br/assuntos/combate-a-crimes-ciberneticos/cartilhas-de-seguranca-da-informacao/cartilhas-de-seguranca)"
 },
 {
-  title:"Um arquivo inesperado depois de um “Pix por engano”", tags:["Malware","Segurança do dispositivo"],
-  intro:"Um número desconhecido escreve de forma educada, diz ter feito um Pix errado e manda um comprovante.",
-  app:"wa", av:"👤", name:"+55 21 98877-6655", sub:"visto por último hoje às 15:06", at:[15,8],
+  title:"Comprovante falso com arquivo APK", tags:["Malware","Segurança do dispositivo"],
+  intro:"Um número desconhecido escreve educadamente dizendo que fez um Pix errado e envia um comprovante.",
+  app:"wa", av:"👤", name:"+55 62 98877-66**", sub:"online", at:[15,8],
   msgs:[
     {s:"Este número não está na sua lista de contatos."},
     {x:"Boa tarde! Desculpa incomodar 🙏"},
     {x:"Fiz um Pix de R$ 1.850 na sua conta {{por engano}}. Era do aluguel."},
     {f:"Comprovante_Pix_1850{{.pdf.apk}}", sz:"2,1 MB"},
-    {x:"{{Preciso que devolva hoje.}} Abre o comprovante e {{confirma agora}} que viu, por favor!"}
+    {x:"{{Preciso que devolva hoje.}} Abre o comprovante e {{confirma agora}} que viu!"}
   ],
   choices:[
-    {t:"Abrir o arquivo para descobrir do que se trata.", ok:false, ti:"Não abra sem verificar", ex:"Arquivos inesperados podem instalar programas nocivos. Um comprovante verdadeiro nunca termina em .apk ou .exe.", ac:"Confirme com o remetente por um canal confiável, mantenha o sistema atualizado e use ferramentas de segurança. Não habilite permissões sem entender o motivo.", me:"(Você toca no arquivo para abrir)", re:[], sy:"⚠ O arquivo instalou um programa espião, que pode capturar senhas e códigos do seu celular."},
-    {t:"Não abrir e verificar no app do banco se o dinheiro entrou.", ok:true, ti:"Boa escolha!", ex:"Desconfiar de anexos inesperados é uma forma importante de reduzir o risco de malware.", ac:"Se abriu algo suspeito, desconecte-se se necessário, execute uma verificação de segurança e procure suporte técnico confiável.", me:"(Você não abre o arquivo e confere o extrato no app do banco)", re:[], sy:"✔ Nenhum Pix de R$ 1.850 entrou. Sem dinheiro recebido, não há o que devolver. Você bloqueou e denunciou o número."},
-    {t:"Baixar o arquivo, mas só abrir depois de encaminhar para alguém.", ok:false, ti:"Encaminhar não torna o arquivo seguro", ex:"O arquivo continua podendo ser malicioso, mesmo se você não o abrir imediatamente.", ac:"Evite baixar e compartilhar anexos suspeitos. Apague a mensagem e faça uma verificação por meios confiáveis.", me:"Amiga, abre esse arquivo aí pra mim? 😅", re:["Amiga: Não abriu aqui. Pede pra ela mandar de novo."], sy:"⚠ Você baixou o arquivo e ainda pôs o aparelho de outra pessoa em risco."}
+    {t:"Abrir o arquivo para conferir o comprovante.", ok:false, ti:"Não abra sem verificar", ex:"Arquivos com extensão .apk ou desconhecidos instalam malwares.", ac:"Confirme com o remetente por um canal confiável.", me:"(Você toca no arquivo para abrir)", re:[], sy:"⚠ O arquivo instalou um aplicativo malicioso no seu aparelho."},
+    {t:"Não abrir e conferir o extrato no app do banco.", ok:true, ti:"Boa escolha!", ex:"Desconfiar de anexos protege contra programas nocivos.", ac:"Sempre valide movimentações diretamente no app oficial.", me:"(Você confere o extrato e vê que nenhum valor entrou)", re:[], sy:"✔ O extrato estava zerado. Era golpe para instalar vírus. Você bloqueou o número."},
+    {t:"Baixar o arquivo e mandar para outra pessoa ver.", ok:false, ti:"Encaminhar não torna seguro", ex:"O arquivo continua malicioso em qualquer aparelho.", ac:"Evite baixar e compartilhar anexos suspeitos.", me:"Amiga, abre esse arquivo aí pra mim?", re:[], sy:"⚠ Você colocou o celular de outra pessoa em risco."}
   ],
-  signs:["Remetente desconhecido","Arquivo com extensão estranha (.apk)","Pressão: “confirme agora”"],
-  help:"Se abriu: rode o antivírus, procure suporte de confiança e troque as senhas.", src:"CERT.br, Códigos Maliciosos (2023)"
+  signs:["Remetente desconhecido","Arquivo executável suspeito (.apk)","Pressão para abrir rápido"],
+  help:"Se instalou o arquivo: coloque o celular em modo avião, passe um antivírus confiável e desinstale o app suspeito.",
+  src:"CERT.br — Cartilha sobre Códigos Maliciosos (https://cartilha.cert.br/)"
 },
 {
-  title:"Alguém liga e pede seu código de verificação", tags:["Proteção de contas","Dados pessoais"],
-  intro:"Seu celular toca. O número na tela parece o da central do seu banco.",
-  app:"call", av:"☎️", name:"Central de Segurança", sub:"Banco · (11) 4004-0000 · 00:47", at:[10,41],
+  title:"Ligação da falsa central de segurança", tags:["Proteção de contas","Dados pessoais"],
+  intro:"Seu celular toca. O identificador mostra um número parecido com o do seu banco.",
+  app:"call", av:"☎️", name:"Central de Segurança", sub:"Banco · (62) 4004-00** · 00:47", at:[10,41],
   msgs:[
-    {x:"Bom dia! Falo da {{central de segurança do seu banco}}. Meu nome é Rodrigo, matrícula 48213."},
-    {x:"Identificamos {{duas compras suspeitas}} no seu cartão. Uma de R$ 3.490 em loja de eletrônicos. Foi o senhor(a)?"},
-    {x:"Para cancelar agora, vou {{enviar um código por SMS}}. Quando chegar, {{me informe os seis dígitos}}."},
+    {x:"Bom dia! Falo da {{central de segurança do seu banco}}. Matrícula 48213."},
+    {x:"Identificamos {{compras suspeitas}} no seu cartão. Foi o senhor(a)?"},
+    {x:"Para cancelar, vou {{enviar um código por SMS}}. Quando chegar, {{me informe os seis dígitos}}."},
     {s:"SMS · Seu código de verificação é 482 913. Não compartilhe com ninguém.", n:1},
     {x:"Chegou? {{Rápido, senão a compra será efetivada!}}"}
   ],
   choices:[
-    {t:"Passar o código, porque a pessoa disse ser do suporte.", ok:false, ti:"Nunca compartilhe o código", ex:"Códigos de verificação podem permitir que outra pessoa entre na sua conta ou a tome para si.", ac:"Não informe o código a ninguém. Encerre o contato e procure o suporte pelo aplicativo ou site oficial.", me:"É 482 913.", re:["Perfeito, obrigado! {{Já cancelamos a compra.}} Pode ficar tranquilo(a)."], sy:"⚠ Com esse código o golpista cadastrou um aparelho novo e acessou sua conta."},
-    {t:"Não compartilhar, desligar e procurar o suporte no canal oficial.", ok:true, ti:"Boa escolha!", ex:"O código é para você usar no processo que iniciou, não para entregar a outra pessoa.", ac:"Se já compartilhou, troque a senha, encerre sessões desconhecidas e proteja a conta pelos canais oficiais.", me:"Vou desligar e ligar para o número que está atrás do meu cartão.", re:[], sy:"✔ A central verdadeira não tinha nenhum alerta. Bancos nunca pedem códigos recebidos por SMS."},
-    {t:"Enviar só os primeiros números do código.", ok:false, ti:"Não compartilhe nenhuma parte", ex:"Mesmo informações parciais podem ajudar um golpista a conduzir a fraude.", ac:"Não envie códigos, senhas ou tokens. Desconfie de contatos que pedem essas informações.", me:"Os três primeiros são 482…", re:["{{Preciso dos seis, senão não consigo cancelar!}} Estou vendo que a compra vai passar!"], sy:"⚠ O golpista continuou pressionando. Parte do código também é informação que ele quer."}
+    {t:"Passar o código SMS para o atendente cancelar a compra.", ok:false, ti:"Nunca compartilhe o código", ex:"O código recebido por SMS autoriza o acesso ou cadastro da sua conta em outro aparelho.", ac:"Jamais informe códigos de verificação a terceiros.", me:"É 482 913.", re:["Perfeito! {{Já cancelamos a compra.}}"], sy:"⚠ Com o código, o golpista assumiu o controle da sua conta."},
+    {t:"Não compartilhar, desligar e ligar para o número oficial do cartão.", ok:true, ti:"Boa escolha!", ex:"Bancos nunca solicitam códigos de verificação por telefone.", ac:"Encerre a chamada e use os canais oficiais do banco.", me:"Vou desligar e ligar para o verso do meu cartão.", re:[], sy:"✔ A central verdadeira confirmou que não havia nenhuma compra indevida."},
+    {t:"Enviar apenas os primeiros números do código.", ok:false, ti:"Não compartilhe nenhuma parte", ex:"Informações parciais também ajudam criminosos.", ac:"Não forneça nenhuma parte de códigos ou senhas.", me:"Os três primeiros são 482…", re:["{{Preciso dos seis para cancelar!}}"], sy:"⚠ O golpista insistiu pois qualquer dígito facilita a fraude."}
   ],
-  signs:["Pedido de código de verificação","Pessoa diz ser do suporte","Urgência para “proteger a conta”"],
-  help:"Suporte oficial, pelo aplicativo ou site do serviço.", src:"CERT.br, Autenticação (2022)"
+  signs:["Pedido de código de verificação por telefone","Falsa central de atendimento","Urgência extrema"],
+  help:"Se passou o código: acesse imediatamente seu app bancário para desconectar outros aparelhos e trocar senhas.",
+  src:"Polícia Federal — Cartilhas de Segurança (https://www.gov.br/pf/pt-br/assuntos/combate-a-crimes-ciberneticos/cartilhas-de-seguranca-da-informacao/cartilhas-de-seguranca); CERT.br"
 },
 {
-  title:"Uma pessoa da internet pede dinheiro", tags:["IA e conteúdo falso","Fraudes digitais"],
-  intro:"Você conversa há semanas com alguém que conheceu na internet. Ele já enviou fotos e um áudio. Hoje, de manhã, chegam estas mensagens.",
-  app:"wa", av:"👨", name:"Carlos Mendes ❤️", sub:"online", at:[8,12],
+  title:"Pedido de dinheiro de contato da internet", tags:["IA e conteúdo falso","Fraudes digitais"],
+  intro:"Você conversa há semanas com alguém que conheceu na rede. Hoje, chegam mensagens de pedido urgente.",
+  app:"wa", av:"https://lh3.googleusercontent.com/d/1D2nnxDCnc_gg6ElbJ_Ff_HY2di9TrAQu", name:"Carlos Mendes ❤️", sub:"online", at:[8,12],
   msgs:[
-    {i:"Foto"},
-    {x:"Bom dia, minha querida ☀️ Dormiu bem? Sonhei com você a noite toda."},
-    {a:"0:14"},
-    {x:"Já arrumei tudo pra te ver no sábado! Comprei a passagem, mas {{meu cartão bloqueou}} na hora de pagar a bagagem 😩"},
-    {x:"{{Pode me mandar R$ 2.500 por Pix?}} Te devolvo assim que chegar. {{Não conta pra ninguém ainda}}, quero fazer surpresa 🥰"}
+    {img:"https://lh3.googleusercontent.com/d/17_Nao1EEC_Rs5lEDMA_PgwIC3aS4DImQ"},
+    {x:"Bom dia, minha querida ☀️ Dormiu bem?"},
+    {img:"https://lh3.googleusercontent.com/d/1Yx1gXIppVTaQpTucPz4YjjalOZmCtkEP"},
+    {x:"Comprei a passagem para te ver, mas {{meu cartão bloqueou}} na hora de pagar a bagagem 😩"},
+    {x:"{{Pode me mandar R$ 2.500 por Pix?}} Te devolvo logo. {{Não conta pra ninguém ainda}}, surpresa 🥰"}
   ],
   choices:[
-    {t:"Enviar o dinheiro, porque já conversamos há semanas.", ok:false, ti:"Confiança construída aos poucos também engana", ex:"Golpistas investem tempo em carinho e promessas antes de pedir dinheiro.", ac:"Não envie dinheiro a quem você nunca encontrou pessoalmente. Converse com alguém de confiança antes de decidir.", me:"Claro, amor. Me passa a chave Pix.", re:["Obrigado, meu amor!! ❤️ {{Só mais uma coisa: surgiu uma taxa de embarque de R$ 900.}}"], sy:"⚠ Você enviou o dinheiro e já surgiu um novo pedido. Isso costuma continuar enquanto a vítima pagar."},
-    {t:"Confirmar a identidade por outro meio e conversar com um familiar.", ok:true, ti:"Boa escolha!", ex:"Fotos, vídeos e vozes podem ser falsificados com inteligência artificial. Uma segunda opinião ajuda a quebrar o encanto.", ac:"Peça uma chamada de vídeo ao vivo, pesquise o perfil (data de criação, publicações antigas) e, na dúvida, não envie dinheiro.", me:"Amor, vamos fazer uma videochamada agora? E vou conversar com minha filha antes de decidir.", re:["{{Agora não dá, tô sem câmera.}} Você não confia em mim? 😢"], sy:"✔ Recusar videochamada e pedir segredo são sinais fortes de golpe. Você pausou e pediu ajuda."},
-    {t:"Pedir mais uma foto ou vídeo e confiar se chegar.", ok:false, ti:"Ainda pode ser falso", ex:"Mais conteúdo enviado no mesmo canal não prova quem está do outro lado.", ac:"Use um meio independente de confirmação, como videochamada ao vivo, e peça ajuda a um familiar.", me:"Manda uma foto agora, segurando um papel com a data de hoje?", re:["(Ele envia uma foto {{perfeita demais}}.) Satisfeita agora? Me manda o Pix, por favor 🥰"], sy:"⚠ A foto podia ser roubada de outra pessoa ou criada com IA. Ela não prova nada."}
+    {t:"Enviar o dinheiro para ajudar quem você conhece na internet.", ok:false, ti:"Confiança construída engana", ex:"Criminosos criam perfis falsos e usam IA para gerar conexão antes de pedir dinheiro.", ac:"Nunca envie valores a pessoas que você nunca viu pessoalmente.", me:"Claro, amor. Qual a chave Pix?", re:["Obrigado!! ❤️ {{Surgiu uma taxa extra de R$ 900.}}"], sy:"⚠ Após o primeiro envio, novos pedidos continuam surgindo."},
+    {t:"Recusar o Pix, pedir videochamada ao vivo e conversar com a família.", ok:true, ti:"Boa escolha!", ex:"Fotos e áudios podem ser gerados por inteligência artificial. A recusa em ligar ao vivo é sinal claro de golpe.", ac:"Desconfie de pedidos financeiros e exija confirmação real.", me:"Vamos fazer videochamada agora? Vou falar com minha família.", re:["{{Agora não dá, tô sem câmera.}} Você não confia em mim? 😢"], sy:"✔ Recusar vídeo e pedir segredo confirmam a suspeita de golpe."},
+    {t:"Pedir outra foto ou vídeo antes de decidir.", ok:false, ti:"Ainda pode ser falso", ex:"Mídias adicionais enviadas pelo mesmo chat não garantem autenticidade.", ac:"Busque sempre meios independentes de verificação.", me:"Manda uma foto segurando um papel com a data de hoje?", re:["(Ele envia uma foto gerada por IA) Satisfeita?"], sy:"⚠ Ferramentas de IA criam imagens sob demanda facilmente hoje em dia."}
   ],
-  signs:["Relação que cresce rápido na internet","Carinho e promessas antes do pedido","Pedido de dinheiro com urgência e segredo"],
-  help:"Denuncie o perfil na plataforma. Se pagou, procure seu banco e registre o BO.", src:"CERT.br, Golpes e Inteligência Artificial (2026)"
+  signs:["Relacionamento rápido online","Pedido de dinheiro com urgência","Exigência de segredo"],
+  help:"Se foi vítima: faça um B.O. na Delegacia Virtual, guarde prints das conversas e denuncie o perfil na rede social.",
+  src:"Delegacia Virtual — Registro de Ocorrências (https://delegaciavirtual.sinesp.gov.br/); CERT.br"
 },
 {
-  title:"Acho que caí em um golpe. E agora?", tags:["Reação e orientação","Prevenção"],
-  intro:"Ontem você foi vítima de um golpe e desabafou em um grupo. Hoje, uma conta “oficial” te escreve.",
+  title:"Falsa central de recuperação de golpe", tags:["Reação e orientação","Prevenção"],
+  intro:"Após relatar um incidente recente, você recebe mensagem de uma suposta central oficial de ajuda.",
   app:"wa", av:"🛡️", name:"Central de Recuperação ✔", sub:"conta comercial", at:[19,3],
   msgs:[
     {s:"Este número não está na sua lista de contatos."},
-    {x:"Olá! Somos da {{Central Nacional de Recuperação de Valores}}. Vimos sua denúncia de golpe."},
-    {x:"Conseguimos {{recuperar 100% do seu dinheiro}}, mas existe uma {{taxa de liberação de R$ 480}}."},
-    {x:"Pague agora por Pix e envie {{seus dados bancários}} para iniciarmos. {{Só hoje}}, depois o prazo expira ⏰"}
+    {x:"Olá! Somos da {{Central Nacional de Recuperação de Valores}}. Vimos sua denúncia."},
+    {x:"Conseguimos {{recuperar 100% do seu dinheiro}}, mas há uma {{taxa de liberação de R$ 480}}."},
+    {x:"Pague agora por Pix e envie {{seus dados bancários}}. {{Oferta válida só hoje}} ⏰"}
   ],
   choices:[
-    {t:"Pagar a taxa para tentar recuperar o dinheiro rapidamente.", ok:false, ti:"Não envie mais dinheiro", ex:"A promessa de recuperar valores mediante nova taxa pode ser outro golpe.", ac:"Interrompa o contato. Procure seu banco pelos canais oficiais, explique o ocorrido e pergunte sobre contestação e medidas disponíveis.", me:"Tá, vou mandar o Pix da taxa agora.", re:["Quase pronto! {{Só falta você enviar a senha do aplicativo}} para liberar o valor."], sy:"⚠ É o segundo golpe: agora querem sua senha."},
-    {t:"Parar o contato, avisar o banco e guardar as provas.", ok:true, ti:"Boa escolha!", ex:"Agir rapidamente pode ajudar a proteger contas e iniciar procedimentos de contestação.", ac:"Troque senhas afetadas, encerre sessões suspeitas, guarde mensagens e comprovantes, considere registrar boletim de ocorrência e peça orientação oficial. Em caso de Pix, consulte o banco sobre o MED e a elegibilidade.", me:"(Você para de responder, salva as capturas de tela e liga para o banco)", re:[], sy:"✔ O banco abriu o procedimento de contestação e orientou a registrar o boletim de ocorrência."},
-    {t:"Apagar todas as mensagens e esperar para ver se algo acontece.", ok:false, ti:"Guarde as evidências", ex:"Mensagens, comprovantes, números e horários podem ajudar o banco e as autoridades a entender o ocorrido.", ac:"Não responda mais ao golpista, preserve as provas e entre em contato com o banco por um canal oficial.", me:"(Você apaga todas as conversas e o comprovante)", re:[], sy:"⚠ Sem as provas, fica mais difícil pedir a contestação ao banco e registrar o boletim de ocorrência."}
+    {t:"Pagar a taxa para reaver o dinheiro perdido.", ok:false, ti:"Não envie mais valores", ex:"Cobrar taxas para devolver dinheiro recuperado é um golpe clássico de recompra/recuperação.", ac:"Interrompa o contato imediatamente.", me:"Vou mandar o Pix da taxa agora.", re:["Quase pronto! {{Só falta você enviar a senha do app}}."], sy:"⚠ Era um novo golpe aplicado sobre a mesma vítima."},
+    {t:"Bloquear o contato, guardar as provas e acionar o banco oficial.", ok:true, ti:"Boa escolha!", ex:"Central de recuperação cobrando taxa é fraude. Apenas bancos oficiais e autoridades lidam com contestações.", ac:"Preserve capturas de tela e registre BO.", me:"(Você bloqueia o número e aciona a ouvidoria do seu banco oficial)", re:[], sy:"✔ Você evitou cair em uma segunda fraude consecutiva."},
+    {t:"Apagar a conversa e ignorar.", ok:false, ti:"Guarde as evidências", ex:"Registrar e preservar provas é essencial para investigações.", ac:"Não apague dados importantes de incidentes.", me:"(Você apaga tudo sem salvar)", re:[], sy:"⚠ Apagar provas dificulta ações legais e registros de segurança."}
   ],
-  signs:["Cobrança de nova taxa para “recuperar” o dinheiro","Pressão contínua","Pedido de dados bancários"],
-  help:"App do banco, delegacia (BO online), Procon e Banco Central.", src:"CERT.br, Golpes: Caiu? Veja o que Fazer (2026)"
+  signs:["Cobrança de taxa para reaver dinheiro","Urgência e pressão","Pedido de dados confidenciais"],
+  help:"Importante: Nenhum órgão cobra taxa para devolver dinheiro de golpes. Consulte o canal de segurança no Pix do Banco Central para ver os procedimentos reais.",
+  src:"Banco Central do Brasil — Segurança no Pix (https://www.bcb.gov.br/estabilidadefinanceira/pix-seguranca)"
 }
 ];
 
 const $ = id => document.getElementById(id);
 const clean = s => s.replace(/\{\{|\}\}/g, "");
-const mt = m => clean(m.x || m.f || m.s || (m.a ? "🎤 Áudio " + m.a : m.i ? "🖼️ " + m.i : ""));
+const mt = m => clean(m.x || m.f || m.s || (m.a ? "🎤 Áudio " + m.a : m.img ? "🖼️ Foto" : ""));
 const slow = () => !matchMedia("(prefers-reduced-motion: reduce)").matches;
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 const shuffle = a => { for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
@@ -318,9 +333,9 @@ function bub(m, kind, time) {
   const d = document.createElement("div");
   if (m.s) { d.className = "sy" + (m.n ? " notif" : "") + (m.g === 1 ? " good" : m.g === 0 ? " bad" : ""); fill(d, m.s); return d; }
   d.className = "m" + (kind === "me" ? " me" : "");
+  if (m.img) { const img = document.createElement("img"); img.src = m.img; img.alt = "Imagem da conversa"; img.className = "chat-img"; d.append(img); }
   if (m.f) { const f = document.createElement("div"); f.className = "file"; f.append("📄 "); const s = document.createElement("span"); fill(s, m.f); f.append(s, " · " + m.sz); d.append(f); }
   if (m.a) d.append("🎤 ▶ ▁▃▅▂▆▃▁▄ " + m.a);
-  if (m.i) d.append("🖼️ " + m.i + " (imagem)");
   if (m.x) { const s = document.createElement("span"); fill(s, m.x); d.append(s); }
   const sm = document.createElement("small"); sm.textContent = time; d.append(sm);
   return d;
@@ -345,7 +360,7 @@ async function outcome(sc, c, my, instant) {
   chat.append(c.me.startsWith("(") ? bub({ s: c.me }, "me") : bub({ x: c.me }, "me", tm(sc, n)));
   chat.scrollTop = 1e5;
   const list = (c.re || []).map(x => ({ x }));
-  list.push({ s: c.sy, g: c.ok ? 1 : 0 });
+  list.push({ s: sc.sy, g: c.ok ? 1 : 0 });
   if (instant) { list.forEach((m, i) => chat.append(bub(m, "in", tm(sc, n + 1 + i)))); chat.scrollTop = 1e5; return true; }
   return play(list, chat, my, n + 1, sc);
 }
@@ -375,7 +390,17 @@ function showScenario(index) {
   $("scenarioTags").innerHTML = "";
   sc.tags.forEach(t => { const s = document.createElement("span"); s.className = "tag"; s.textContent = t; $("scenarioTags").appendChild(s); });
   $("phone").className = "phone " + sc.app;
-  $("phAv").textContent = sc.av; $("phName").textContent = sc.name; $("phSub").textContent = sc.sub;
+  
+  const avEl = $("phAv");
+  avEl.innerHTML = "";
+  if (sc.av.startsWith("http")) {
+    const img = document.createElement("img"); img.src = sc.av; img.alt = "Foto de perfil";
+    avEl.appendChild(img);
+  } else {
+    avEl.textContent = sc.av;
+  }
+
+  $("phName").textContent = sc.name; $("phSub").textContent = sc.sub;
   const chat = $("chat"); chat.innerHTML = ""; chat.classList.remove("rev");
   const fb = $("feedback"); fb.className = "feedback hidden"; fb.innerHTML = "";
   $("decide").classList.add("hidden"); $("nextBtn").classList.add("hidden");
@@ -400,7 +425,7 @@ function showFeedback(ci, scroll = true) {
   fb.className = "feedback " + (c.ok ? "good" : "warn"); fb.innerHTML = "";
   const h = document.createElement("h3"); h.textContent = c.ti;
   const p1 = document.createElement("p"); p1.textContent = c.ex;
-  const src = document.createElement("p"); src.className = "small"; src.textContent = "Fonte: " + sc.src;
+  const src = document.createElement("p"); src.className = "small"; src.textContent = "Fonte Oficial: " + sc.src;
   fb.append(h, p1, line("O que fazer: ", c.ac), line("Sinais de alerta: ", sc.signs.join("; ") + "."), line("Na conversa: ", "os trechos em amarelo mostram onde estavam os sinais."), line("Onde buscar ajuda: ", sc.help), src);
   if (scroll) fb.scrollIntoView({ behavior: slow() ? "smooth" : "auto", block: "nearest" });
 }
@@ -436,20 +461,6 @@ $("increaseText").addEventListener("click", () => { textSize = Math.min(26, text
 $("decreaseText").addEventListener("click", () => { textSize = Math.max(16, textSize - 2); document.body.style.fontSize = textSize + "px"; });
 $("contrastToggle").addEventListener("click", () => { const e = document.body.classList.toggle("high-contrast"); $("contrastToggle").setAttribute("aria-pressed", String(e)); });
 
-const wf = (t, b) => `<div class="wf"><b>${t}</b>${b.map(x => x[0] === "*" ? `<div class="btn">${x.slice(1)}</div>` : `<div>${x}</div>`).join("")}</div>`;
-const V = {
-  fluxo: () => `<h2>Fluxo geral</h2><p class="muted">Caminho que a pessoa percorre no simulador.</p>` + [["Início", "Apresenta o simulador e o aviso de que não há julgamento."], ["Situação (1 a 6)", "Um celular fictício mostra a conversa chegando mensagem por mensagem, como no WhatsApp, SMS ou ligação."], ["Decisão", "A pessoa escolhe o que faria. A ordem das opções muda a cada jogo."], ["Reação", "A escolha aparece na conversa e o golpista (ou o resultado) reage."], ["Feedback", "Explica o que fazer, destaca em amarelo os sinais de alerta na conversa e mostra onde buscar ajuda."], ["Ainda há situações?", "Sim: segue para a próxima. Não: vai para o resumo."], ["Resumo", "Mostra as escolhas seguras, 3 perguntas antes de agir e “Jogar novamente”."]].map((x, k, a) => `<div class="fb"><h3>${x[0]}</h3>${x[1]}</div>${k < a.length - 1 ? '<div class="ar" aria-hidden="true">↓</div>' : ""}`).join("") + `<h3 style="margin-top:18px">Os 5 eixos no simulador</h3><ul class="mini-list"><li>Segurança digital e principais riscos: situação 4.</li><li>Golpes e fraudes digitais: situações 1, 2 e 5.</li><li>Malwares e ameaças: situação 3.</li><li>Prevenção e boas práticas: “O que fazer” de cada feedback.</li><li>Identificação, reação e orientação: sinais de alerta, onde buscar ajuda e situação 6.</li></ul>`,
-  cen: () => `<h2>Cenários e decisões</h2><p class="muted">As 6 situações, a conversa recebida e as decisões possíveis.</p><div class="summary-list">` + S.map((c, k) => `<div class="summary-item"><strong>${k + 1}. ${c.title}</strong><p class="small">${c.tags.join(" · ")} · Canal: ${c.app === "wa" ? "WhatsApp" : c.app === "sms" ? "SMS" : "Ligação"}</p><ul class="mini-list">${c.msgs.map(m => `<li>${mt(m)}</li>`).join("")}</ul><p><b>Decisões:</b></p><ul class="mini-list">${c.choices.map(o => `<li><b>${o.ok ? "✔ Segura" : "✖ Arriscada"}:</b> ${o.t} ${o.ex}</li>`).join("")}</ul></div>`).join("") + `</div>`,
-  telas: () => `<h2>Telas (wireframes)</h2><p class="muted">Esboço das 4 telas principais.</p><div class="wfs">` + wf("Abertura", ["Título do simulador", "Aviso: sem julgamento", "Situação 1 de 6 (começa direto)"]) + wf("Situação", ["Situação 1 de 6", "Moldura de celular", "Mensagens chegando (digitando…)", "*Opção A", "*Opção B", "*Opção C"]) + wf("Feedback", ["Reação na conversa", "Sinais destacados em amarelo", "O que fazer", "Onde buscar ajuda", "*Próxima situação"]) + wf("Resumo", ["Escolhas seguras: X de 6", "Resumo por situação", "3 perguntas antes de agir", "*Jogar novamente"]) + `</div><p class="small muted">Em todas as telas: A−, A+ e alto contraste.</p>`
-};
-document.querySelectorAll(".tab").forEach(b => b.addEventListener("click", () => {
-  const v = b.dataset.v;
-  document.querySelectorAll(".tab").forEach(x => x.removeAttribute("aria-current"));
-  b.setAttribute("aria-current", "page");
-  $("layout").classList.toggle("hidden", v !== "sim");
-  $("docView").classList.toggle("hidden", v === "sim");
-  if (v !== "sim") $("docView").innerHTML = V[v]();
-}));
 newOrders();
 showScenario(0);
 </script>
