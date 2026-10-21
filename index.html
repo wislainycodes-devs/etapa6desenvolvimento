@@ -62,6 +62,7 @@ footer{max-width:1040px;padding:0 18px 32px;margin:auto;color:var(--muted);font-
 .fama-logo{max-width:220px;width:100%;height:auto;border-radius:10px;background:#fff;padding:8px;border:1px solid var(--border);box-shadow:0 2px 8px rgba(0,0,0,.05)}
 .summary-list{display:grid;gap:10px;margin:16px 0}.summary-item{border:1px solid var(--border);padding:12px;border-radius:10px}
 .hidden{display:none!important}
+/* celular */
 .phone{width:min(100%,340px);margin:14px auto;border:9px solid #14171c;border-radius:38px;background:#14171c;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,.25);font-family:Arial,Helvetica,sans-serif}
 .ph-top{display:flex;justify-content:space-between;padding:4px 18px 5px;font-size:11px;font-weight:700;color:#fff;line-height:1.4}
 .ph-head{display:flex;gap:10px;align-items:center;padding:9px 12px;color:#fff;background:#075e54}
@@ -313,6 +314,7 @@ const S = [
 
 const $ = id => document.getElementById(id);
 const clean = s => s.replace(/\{\{|\}\}/g, "");
+const mt = m => clean(m.x || m.f || m.s || (m.a ? "🎤 Áudio " + m.a : m.img ? "🖼️ Foto" : ""));
 const slow = () => !matchMedia("(prefers-reduced-motion: reduce)").matches;
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 const shuffle = a => { for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
@@ -341,4 +343,126 @@ function bub(m, kind, time) {
 async function play(list, chat, my, start, sc) {
   for (let i = 0; i < list.length; i++) {
     const m = list[i];
-    if
+    if (slow()) {
+      let t = null;
+      if (!m.s) { t = document.createElement("div"); t.className = "m typ"; t.setAttribute("aria-hidden", "true"); t.innerHTML = "<i></i><i></i><i></i>"; chat.append(t); chat.scrollTop = 1e5; }
+      await sleep(m.s ? 600 : 650 + Math.min(900, (m.x || "").length * 11));
+      if (my !== run) return false;
+      if (t) t.remove();
+    }
+    chat.append(bub(m, "in", tm(sc, start + i)));
+    chat.scrollTop = 1e5;
+  }
+  return true;
+}
+async function outcome(sc, c, my, instant) {
+  const chat = $("chat"), n = sc.msgs.length;
+  chat.append(c.me.startsWith("(") ? bub({ s: c.me }, "me") : bub({ x: c.me }, "me", tm(sc, n)));
+  chat.scrollTop = 1e5;
+  const list = (c.re || []).map(x => ({ x }));
+  list.push({ s: sc.sy, g: c.ok ? 1 : 0 });
+  if (instant) { list.forEach((m, i) => chat.append(bub(m, "in", tm(sc, n + 1 + i)))); chat.scrollTop = 1e5; return true; }
+  return play(list, chat, my, n + 1, sc);
+}
+
+function renderNav() {
+  const nav = $("scenarioNav"); nav.innerHTML = "";
+  S.forEach((sc, index) => {
+    const b = document.createElement("button");
+    b.type = "button"; b.className = "nav-btn" + (index === current ? " active" : "");
+    b.setAttribute("aria-current", index === current ? "step" : "false");
+    const n = document.createElement("span"); n.className = "nav-number"; n.textContent = answered[index] ? "✓" : String(index + 1);
+    const l = document.createElement("span"); l.className = "nav-label"; l.textContent = sc.title;
+    b.append(n, l); b.addEventListener("click", () => showScenario(index)); nav.appendChild(b);
+  });
+}
+function updateProgress() {
+  const done = Object.keys(answered).length;
+  $("progressLabel").textContent = `Situação ${current + 1} de ${S.length}`;
+  $("scoreLabel").textContent = `Escolhas seguras: ${Object.values(answered).filter(a => a.ok).length}`;
+  $("progressFill").style.width = `${(done / S.length) * 100}%`;
+  $("progressBar").setAttribute("aria-valuenow", done);
+}
+function showScenario(index) {
+  current = index; const my = ++run, sc = S[index], ans = answered[index];
+  $("scenarioView").classList.remove("hidden"); $("resultView").classList.add("hidden");
+  $("scenarioTitle").textContent = sc.title; $("scenarioIntro").textContent = sc.intro;
+  $("scenarioTags").innerHTML = "";
+  sc.tags.forEach(t => { const s = document.createElement("span"); s.className = "tag"; s.textContent = t; $("scenarioTags").appendChild(s); });
+  $("phone").className = "phone " + sc.app;
+  
+  const avEl = $("phAv");
+  avEl.innerHTML = "";
+  if (sc.av.startsWith("http")) {
+    const img = document.createElement("img"); img.src = sc.av; img.alt = "Foto de perfil";
+    avEl.appendChild(img);
+  } else {
+    avEl.textContent = sc.av;
+  }
+
+  $("phName").textContent = sc.name; $("phSub").textContent = sc.sub;
+  const chat = $("chat"); chat.innerHTML = ""; chat.classList.remove("rev");
+  const fb = $("feedback"); fb.className = "feedback hidden"; fb.innerHTML = "";
+  $("decide").classList.add("hidden"); $("nextBtn").classList.add("hidden");
+  $("nextBtn").textContent = index === S.length - 1 ? "Ver meu resultado →" : "Próxima situação →";
+  const box = $("choices"); box.innerHTML = "";
+  if (ans) {
+    sc.msgs.forEach((m, i) => chat.append(bub(m, "in", tm(sc, i))));
+    outcome(sc, sc.choices[ans.ci], my, true);
+    chat.classList.add("rev"); showFeedback(ans.ci, false); $("nextBtn").classList.remove("hidden");
+  } else {
+    orders[index].forEach((idx, pos) => {
+      const b = document.createElement("button"); b.type = "button"; b.className = "choice-btn";
+      b.textContent = `${String.fromCharCode(65 + pos)}. ${sc.choices[idx].t}`;
+      b.addEventListener("click", () => answerScenario(idx)); box.appendChild(b);
+    });
+    play(sc.msgs, chat, my, 0, sc).then(ok => { if (ok && my === run) { $("decide").classList.remove("hidden"); } });
+  }
+  updateProgress(); renderNav();
+}
+function showFeedback(ci, scroll = true) {
+  const sc = S[current], c = sc.choices[ci], fb = $("feedback");
+  fb.className = "feedback " + (c.ok ? "good" : "warn"); fb.innerHTML = "";
+  const h = document.createElement("h3"); h.textContent = c.ti;
+  const p1 = document.createElement("p"); p1.textContent = c.ex;
+  const src = document.createElement("p"); src.className = "small"; src.textContent = "Fonte Oficial: " + sc.src;
+  fb.append(h, p1, line("O que fazer: ", c.ac), line("Sinais de alerta: ", sc.signs.join("; ") + "."), line("Na conversa: ", "os trechos em amarelo mostram onde estavam os sinais."), line("Onde buscar ajuda: ", sc.help), src);
+  if (scroll) fb.scrollIntoView({ behavior: slow() ? "smooth" : "auto", block: "nearest" });
+}
+async function answerScenario(ci) {
+  if (answered[current]) return;
+  const sc = S[current], c = sc.choices[ci], my = run;
+  answered[current] = { ok: c.ok, ci };
+  $("decide").classList.add("hidden"); updateProgress(); renderNav();
+  const ok = await outcome(sc, c, my, false);
+  if (!ok || my !== run) return;
+  $("chat").classList.add("rev"); showFeedback(ci); $("nextBtn").classList.remove("hidden");
+}
+function showResults() {
+  run++;
+  $("scenarioView").classList.add("hidden"); $("resultView").classList.remove("hidden");
+  const n = Object.values(answered).filter(a => a.ok).length;
+  $("resultMessage").textContent = `Você escolheu a opção mais segura em ${n} de ${S.length} situações. Use o resultado como oportunidade de aprendizagem: reconhecer sinais e confirmar informações são habilidades que melhoram com a prática.`;
+  $("resultSummary").innerHTML = "";
+  S.forEach((sc, i) => {
+    const r = answered[i], it = document.createElement("div"); it.className = "summary-item";
+    const s = document.createElement("strong"); s.textContent = `${i + 1}. ${sc.title}`;
+    const p = document.createElement("p"); p.className = "small";
+    p.textContent = r ? (r.ok ? "Resposta segura escolhida." : "Revise a orientação desta situação.") : "Situação ainda não respondida.";
+    it.append(s, p); $("resultSummary").appendChild(it);
+  });
+  renderNav();
+}
+function restart() { newOrders(); current = 0; answered = {}; showScenario(0); }
+$("nextBtn").addEventListener("click", () => { if (!answered[current]) return; current < S.length - 1 ? showScenario(current + 1) : showResults(); });
+$("restartBtn").addEventListener("click", restart);
+$("playAgainBtn").addEventListener("click", restart);
+$("increaseText").addEventListener("click", () => { textSize = Math.min(26, textSize + 2); document.body.style.fontSize = textSize + "px"; });
+$("decreaseText").addEventListener("click", () => { textSize = Math.max(16, textSize - 2); document.body.style.fontSize = textSize + "px"; });
+$("contrastToggle").addEventListener("click", () => { const e = document.body.classList.toggle("high-contrast"); $("contrastToggle").setAttribute("aria-pressed", String(e)); });
+
+newOrders();
+showScenario(0);
+</script>
+</body>
+</html>
