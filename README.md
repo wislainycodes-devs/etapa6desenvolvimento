@@ -8,14 +8,6 @@ O "Você Cairia Nessa?" é um simulador interativo de conscientização sobre se
 
 ---
 
-## Links de Acesso Direto (GitHub Pages)
-
-| Etapa do Projeto | Link de Execução Online | Descrição |
-| :--- | :--- | :--- |
-| **Etapa 1 (Protótipo Inicial)** | [Acessar Etapa 1](https://SEU_USUARIO.github.io/NOME_DO_REPOSITORIO/etapa-1/) | Protótipo conceitual inicial e estrutura básica de cenários. |
-| **Etapa Final (Versão Atualizada)** | [Acessar Etapa Final](https://SEU_USUARIO.github.io/NOME_DO_REPOSITORIO/etapa-final/) | Versão completa com mídias integradas, fontes oficiais e acessibilidade. |
-
-> *Nota: Substitua `SEU_USUARIO` pelo seu nome de usuário no GitHub e `NOME_DO_REPOSITORIO` pelo nome exato do repositório criado.*
 
 ---
 
