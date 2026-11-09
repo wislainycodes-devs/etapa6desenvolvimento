@@ -359,7 +359,7 @@ async function outcome(sc, c, my, instant) {
   const chat = $("chat"), n = sc.msgs.length;
   chat.append(c.me.startsWith("(") ? bub({ s: c.me }, "me") : bub({ x: c.me }, "me", tm(sc, n)));
   chat.scrollTop = 1e5;
-  const list = (c.re || []).map(x => ({ x }));
+  const list = (c.re || []).filter(Boolean).map(x => ({ x }));
   list.push({ s: sc.sy, g: c.ok ? 1 : 0 });
   if (instant) { list.forEach((m, i) => chat.append(bub(m, "in", tm(sc, n + 1 + i)))); chat.scrollTop = 1e5; return true; }
   return play(list, chat, my, n + 1, sc);
@@ -437,6 +437,7 @@ async function answerScenario(ci) {
   const ok = await outcome(sc, c, my, false);
   if (!ok || my !== run) return;
   $("chat").classList.add("rev"); showFeedback(ci); $("nextBtn").classList.remove("hidden");
+  $("nextBtn").focus();
 }
 function showResults() {
   run++;
